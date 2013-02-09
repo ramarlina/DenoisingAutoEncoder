@@ -1,6 +1,8 @@
 Denoising AutoEncoder
 =====================
 
+<br/>
+
 Denoising Autoencoder can be trained to learn high level representation of the feature space in an unsupervised fashion.
 <br/>
 A deep neural network can be created by stacking layers of pre-trained autoencoders one on top of the other.
@@ -44,3 +46,7 @@ The training of the whole network is done in three phases:
     <img src="https://raw.github.com/ramarlina/DenoisingAutoEncoder/master/results/somDA_1000k_MSE_0.2_SP.png" alt="results" />
 
 </div>
+
+Here is great lecture from Paul Vincent on denoising auto encoders: http://videolectures.net/icml08_vincent_ecrf/
+<br/>
+http://www.iro.umontreal.ca/~vincentp/Publications/denoising_autoencoders_tr1316.pdf
