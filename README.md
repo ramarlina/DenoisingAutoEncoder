@@ -24,9 +24,9 @@ Denoising Autoencoder with dropouts and gaussian noise for learning high level r
 <div>
     <h1>Results</h1>
     <p>Feature detectors after 500k iterations with Gaussian Noise: </p>
-    <img src="https://raw.github.com/ramarlina/DenoisingAutoEncoder/master/somDA_SP_500k.png" alt="results" />
+    <img src="https://raw.github.com/ramarlina/DenoisingAutoEncoder/master/results/somDA_SP_500k.png" alt="results" />
     
     <p>Feature detectors after 1 million iterations with Salt and Pepper Noise: </p>
-    <img src="https://raw.github.com/ramarlina/DenoisingAutoEncoder/master/somDA_1000k_MSE_0.2_SP.png" alt="results" />
+    <img src="https://raw.github.com/ramarlina/DenoisingAutoEncoder/master/results/somDA_1000k_MSE_0.2_SP.png" alt="results" />
 
 </div>
