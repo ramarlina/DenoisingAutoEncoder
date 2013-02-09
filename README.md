@@ -1,9 +1,20 @@
-DenoisingAutoEncoder
-====================
+Denoising AutoEncoder
+=====================
 
-Denoising Autoencoder with dropouts and gaussian noise for learning high level representation of the feature space in an unsupervised fashion.
-
-
+Denoising Autoencoder can be trained to learn high level representation of the feature space in an unsupervised fashion.
+A deep neural network can be created by stacking layers of pre-trained autoencoders one on top of the other.
+The training of the whole network is done in three phases:
+    1. Pre-training: In this phase, each layer is trained to reconstruct original data from corrupted version.  
+        Different efficient methods of corrupting input include: 
+            - Adding small gaussian noises
+            - Randomly set variables to arbitrary values
+            - Randomly set input variables to 0
+            
+    2. Learning: In this phase, a sigmoid layer and a softmax layer are placed on top of the stack, and trained
+       for classification tasks
+       
+    3. Fine-tuning: The whole network is fine-tuned using standard backprobagation algorithm   
+    
     # Create the structure of stacked denoising autoencoders
     sDA = StackedDA([300, 100])
     
