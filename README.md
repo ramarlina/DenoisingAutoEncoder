@@ -4,7 +4,7 @@ DenoisingAutoEncoder
 Denoising Autoencoder with dropouts and gaussian noise for learning high level representation of the feature space in an unsupervised fashion.
 
 
-# Create the structure of stacked denoising autoencoders
+    # Create the structure of stacked denoising autoencoders
     sDA = StackedDA([300, 100])
     
     # Pre-train layers one at a time, with 50% Salt and Pepper noise
