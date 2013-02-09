@@ -7,16 +7,16 @@ A deep neural network can be created by stacking layers of pre-trained autoencod
 The training of the whole network is done in three phases:
 <div>
     1. Pre-training: In this phase, each layer is trained to reconstruct original data from corrupted version.  
-        Different efficient methods of corrupting input include: 
-            - Adding small gaussian noises
-            - Randomly set variables to arbitrary values
-            - Randomly set input variables to 0
-            
+        Different efficient methods of corrupting input include: <br/>
+            - Adding small gaussian noises<br/>
+            - Randomly set variables to arbitrary values<br/>
+            - Randomly set input variables to 0<br/>
+  <br/>
     2. Learning: In this phase, a sigmoid layer and a softmax layer are placed on top of the stack, and trained
-       for classification tasks
-       
+       for classification tasks.
+       <br/>
     3. Fine-tuning: The whole network is fine-tuned using standard backprobagation algorithm   
-    
+    <br/>
 </div>
     # Create the structure of stacked denoising autoencoders
     sDA = StackedDA([300, 100])
