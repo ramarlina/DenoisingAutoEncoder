@@ -1,7 +1,7 @@
 DenoisingAutoEncoder
 ====================
 
-Denoising Autoencoder with dropouts and gaussian noise for learning high level representation of the feature space in an unsupervised fashion.
+Denoising Autoencoder with Salt and Pepper noise high level representation of the feature space in an unsupervised fashion.
 
 
 
