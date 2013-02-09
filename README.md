@@ -2,8 +2,10 @@ Denoising AutoEncoder
 =====================
 
 Denoising Autoencoder can be trained to learn high level representation of the feature space in an unsupervised fashion.
+<br/>
 A deep neural network can be created by stacking layers of pre-trained autoencoders one on top of the other.
 The training of the whole network is done in three phases:
+<div>
     1. Pre-training: In this phase, each layer is trained to reconstruct original data from corrupted version.  
         Different efficient methods of corrupting input include: 
             - Adding small gaussian noises
@@ -15,6 +17,7 @@ The training of the whole network is done in three phases:
        
     3. Fine-tuning: The whole network is fine-tuned using standard backprobagation algorithm   
     
+</div>
     # Create the structure of stacked denoising autoencoders
     sDA = StackedDA([300, 100])
     
