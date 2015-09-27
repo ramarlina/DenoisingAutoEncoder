@@ -1,6 +1,4 @@
-import numpy
-from dA import dA
-from Loss import Loss
+import numpy  
 import Noise
 import Layers
 
@@ -28,32 +26,29 @@ class StackedDA():
     def __repr__(self):
         return "\nStacked Denoising Autoencoder Structure:\t%s"%(" -> ".join([str(x) for x in self.structure]))
         
-    def pre_train(self, X, n_iters=1, rate=0.3):
+    def pre_train(self, X, epochs=1, noise_rate=0.3):
         self.structure = numpy.concatenate([[X.shape[1]], self.structure])
         self.X = X
         trainer = Trainer()
         print "Pre-training: "#, self.__repr__()
         for i in range(len(self.structure) - 1):
             print "Layer: %dx%d"%( self.structure[i], self.structure[i+1])
-            s1 = Layers.SigmoidLayer(self.structure[i], self.structure[i+1], noise=Noise.SaltAndPepper(rate))
+            s1 = Layers.SigmoidLayer(self.structure[i], self.structure[i+1], noise=Noise.SaltAndPepper(noise_rate))
             s2 = Layers.SigmoidLayer(self.structure[i+1], self.X.shape[1])
-            s1, s2 = trainer.train([s1, s2], self.X, self.X, n_iters)
+            s1, s2 = trainer.train([s1, s2], self.X, self.X, epochs)
             self.X = s1.activate(self.X)
             self.Layers.append(s1)
     
-    def finalLayer(self, y, n_iters=1, learner_size=200):
-        print "Final Layer"
-        sigmoid = Layers.SigmoidLayer(self.X.shape[1], learner_size, noise=Noise.GaussianNoise(0.1))
-        softmax = Layers.SoftmaxLayer(learner_size, y.shape[1])
-        trainer = Trainer()
-        sigmoid, softmax = trainer.train([sigmoid, softmax], self.X, y, n_iters)
-        self.Layers.append(sigmoid)
+    def finalLayer(self, X, y, epochs=1, n_neurons=200):
+        print "Final Layer" 
+        V = self.predict(X)
+        softmax = Layers.SoftmaxLayer(self.Layers[-1].W.shape[1], y.shape[1]) 
+        softmax = Trainer().train([softmax], V, y, epochs)[0]
         self.Layers.append(softmax)
      
-    def fine_tune(self, X, y, n_iters=1):
-        print "Fine Tunning"
-        trainer = Trainer()
-        self.Layers = trainer.train(self.Layers, X, y, n_iters)
+    def fine_tune(self, X, y, epochs=1):
+        print "Fine Tunning" 
+        self.Layers = Trainer().train(self.Layers, X, y, epochs)
      
     def predict(self, X):
         #print self

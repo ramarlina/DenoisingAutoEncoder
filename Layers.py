@@ -6,7 +6,7 @@ identity = lambda x: x
 
 class BaseLayer():
     def backwardPass(self, y):
-        gradient = -(y - self.output) + self.w_constraint(self.W)
+        gradient = self.output - y + self.w_constraint(self.W)
         #sys.stdout.write( "\rError: %4.4f"%numpy.mean((y - self.output)**2) )
         print "%s %d: %4.4f"%(self.name, self.epoch, numpy.mean((y - self.output)**2))
         return gradient
@@ -20,8 +20,11 @@ class BaseLayer():
         return transfer
 
 class SigmoidLayer(BaseLayer):
-    def __init__(self, n_input, n_output, bias=True, alpha=0.01, weight_decay=1, w_constraint=null, noise=identity):
-        self.W = numpy.random.uniform(-0.1,0.1, (n_input + int(bias),n_output))
+    def __init__(self, n_input, n_output, bias=True, alpha=0.01, weight_decay=1, w_constraint=null, noise=identity, W=None):
+        if W==None:
+            self.W = numpy.random.uniform(-0.1,0.1, (n_input + int(bias),n_output))
+        else:
+            self.W = W
         self.bias = bias
         self.alpha = alpha
         self.n_input = n_input + int(bias)
@@ -64,4 +67,12 @@ class SoftmaxLayer(BaseLayer):
         self.output = v/numpy.sum(v)
         self.gradOutput = self.output*(1 - self.output)
         return self.output
+
+    def update(self, transfer):
+        gradient =  transfer  
+        transfer = numpy.dot(gradient, self.W[1:].T)
+        self.W -= self.alpha * numpy.dot(self.input.reshape(self.n_input, 1), gradient.reshape(1, self.n_output))
+        self.W = self.W * self.weight_decay
+        self.epoch += 1
+        return transfer
         
